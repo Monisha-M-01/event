@@ -1,0 +1,94 @@
+{
+  "alert_templates": [
+    {
+      "type": "medical",
+      "severity": 5,
+      "description_template": "Medical emergency reported in {zone}. Fan collapsed near {section}. First responders requested immediately.",
+      "recommended_action": "Dispatch medical team. Clear path from First Aid to {zone}. Alert nearest gate staff."
+    },
+    {
+      "type": "medical",
+      "severity": 3,
+      "description_template": "Heat exhaustion case in {zone}, Section {section}. Fan conscious but dizzy.",
+      "recommended_action": "Send water and cooling supplies. Guide fan to nearest cooling station or First Aid."
+    },
+    {
+      "type": "overcrowding",
+      "severity": 4,
+      "description_template": "Crowd density at {gate} exceeds safe threshold. Current queue time: {queue_time} minutes. Risk of crush situation.",
+      "recommended_action": "Redirect incoming fans to alternate gates. Deploy crowd-control barriers. Announce alternate entry via PA."
+    },
+    {
+      "type": "overcrowding",
+      "severity": 3,
+      "description_template": "Concourse in {zone} experiencing heavy foot traffic. Movement speed below 0.5 m/s.",
+      "recommended_action": "Open overflow corridors. Position staff at choke points. Consider one-way flow in concourse."
+    },
+    {
+      "type": "lost_child",
+      "severity": 5,
+      "description_template": "Lost child reported in {zone}. Description: approximately {age} years old, wearing {clothing}. Last seen near {section}.",
+      "recommended_action": "Activate Code Adam. Lock down nearest exits. Broadcast description on staff radios. Check Family Zone and child wristband station."
+    },
+    {
+      "type": "security",
+      "severity": 4,
+      "description_template": "Unattended bag found near {section} in {zone}. Area has been cordoned off by nearby fans.",
+      "recommended_action": "Send security team immediately. Clear 30m radius. Do not touch the item. Contact bomb disposal if not claimed in 5 minutes."
+    },
+    {
+      "type": "security",
+      "severity": 3,
+      "description_template": "Altercation between fans in {zone}, Section {section}. Verbal dispute escalating.",
+      "recommended_action": "Deploy security personnel. Separate individuals. Offer de-escalation. Consider ejection if necessary."
+    },
+    {
+      "type": "equipment_failure",
+      "severity": 3,
+      "description_template": "Elevator malfunction at {zone}. Elevator stuck between levels 1 and 2. {occupants} people inside.",
+      "recommended_action": "Contact maintenance immediately. Communicate with occupants via intercom. Redirect wheelchair users to alternate routes."
+    },
+    {
+      "type": "equipment_failure",
+      "severity": 2,
+      "description_template": "Restroom flooding in {zone} near Section {section}. Two stalls out of order.",
+      "recommended_action": "Send maintenance crew. Place wet floor signs. Direct fans to nearest alternate restrooms."
+    },
+    {
+      "type": "weather",
+      "severity": 4,
+      "description_template": "Severe thunderstorm warning issued for stadium area. Expected arrival in {minutes} minutes. Lightning risk.",
+      "recommended_action": "Activate weather protocol. Prepare to halt match. Direct fans to covered areas. Secure outdoor equipment."
+    },
+    {
+      "type": "weather",
+      "severity": 2,
+      "description_template": "Temperature exceeding 35°C (95°F). Heat advisory in effect for outdoor zones.",
+      "recommended_action": "Activate misting stations. Distribute free water at all gates. Increase cooling station staffing."
+    },
+    {
+      "type": "accessibility",
+      "severity": 4,
+      "description_template": "Wheelchair ramp at {gate} blocked by crowd gathering. Wheelchair users unable to enter.",
+      "recommended_action": "Clear ramp immediately. Deploy staff to maintain clear path. Set up temporary barriers to protect wheelchair lane."
+    },
+    {
+      "type": "vip",
+      "severity": 1,
+      "description_template": "VIP delegation arriving at VIP Gate in {minutes} minutes. {count} guests with security detail.",
+      "recommended_action": "Prepare VIP entrance. Brief security team. Ensure VIP Lounge is ready."
+    },
+    {
+      "type": "fire",
+      "severity": 5,
+      "description_template": "Smoke detected in {zone} kitchen area near Section {section}. Fire alarm triggered.",
+      "recommended_action": "Evacuate immediate area. Deploy fire team. Do NOT use elevators. Activate sprinkler system if needed."
+    },
+    {
+      "type": "infrastructure",
+      "severity": 2,
+      "description_template": "Power flickering in {zone}. Backup generators on standby.",
+      "recommended_action": "Monitor situation. Prepare backup lighting. Alert IT team for scoreboard/display systems."
+    }
+  ]
+}

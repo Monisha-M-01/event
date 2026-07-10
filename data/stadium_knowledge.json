@@ -1,0 +1,239 @@
+{
+  "stadium": {
+    "name": "MetLife Stadium",
+    "event": "FIFA World Cup 2026",
+    "location": "East Rutherford, New Jersey, USA",
+    "capacity": 82500,
+    "emergency_number": "911",
+    "info_hotline": "+1-800-FIFA-2026"
+  },
+  "zones": [
+    {
+      "zone_id": "north_stand",
+      "name": "North Stand",
+      "sections": ["N1", "N2", "N3", "N4"],
+      "capacity": 12000,
+      "gates": [
+        {"gate_id": "gate_1", "name": "Gate 1", "location": "North Entrance", "queue_time_minutes": 8},
+        {"gate_id": "gate_2", "name": "Gate 2", "location": "North-East Entrance", "queue_time_minutes": 3}
+      ],
+      "amenities": ["restrooms", "food_kiosk", "merchandise_shop", "water_fountain"],
+      "accessibility": {
+        "wheelchair_accessible": true,
+        "wheelchair_route": "Ramp access from Gate 1, elevator to all levels via North Elevator Bank",
+        "accessible_seating": "Sections N1 and N2, rows 1-3 (field level), dedicated companion seats available",
+        "accessible_restrooms": "Located near Section N1, ground level — fully ADA-compliant",
+        "sensory_friendly": false,
+        "hearing_loop": true,
+        "quiet_room_nearby": false,
+        "braille_signage": true,
+        "service_animal_relief": "Pet relief area located 50m outside Gate 1"
+      },
+      "current_status": {
+        "crowd_count": 8500,
+        "density_level": "high",
+        "alerts": []
+      }
+    },
+    {
+      "zone_id": "south_stand",
+      "name": "South Stand",
+      "sections": ["S1", "S2", "S3", "S4"],
+      "capacity": 12000,
+      "gates": [
+        {"gate_id": "gate_3", "name": "Gate 3", "location": "South Entrance", "queue_time_minutes": 12},
+        {"gate_id": "gate_4", "name": "Gate 4", "location": "South-West Entrance", "queue_time_minutes": 5}
+      ],
+      "amenities": ["restrooms", "food_court", "atm", "fan_zone_stage"],
+      "accessibility": {
+        "wheelchair_accessible": true,
+        "wheelchair_route": "Level access from Gate 4, dedicated wheelchair lane marked with blue signage",
+        "accessible_seating": "Sections S3 and S4, elevated platform with clear sightlines",
+        "accessible_restrooms": "Located between Sections S2 and S3, ground level",
+        "sensory_friendly": false,
+        "hearing_loop": false,
+        "quiet_room_nearby": false,
+        "braille_signage": true,
+        "service_animal_relief": "Pet relief area 80m south of Gate 3"
+      },
+      "current_status": {
+        "crowd_count": 10200,
+        "density_level": "critical",
+        "alerts": ["overcrowding"]
+      }
+    },
+    {
+      "zone_id": "east_wing",
+      "name": "East Wing",
+      "sections": ["E1", "E2", "E3"],
+      "capacity": 10000,
+      "gates": [
+        {"gate_id": "gate_5", "name": "Gate 5", "location": "East Entrance", "queue_time_minutes": 2}
+      ],
+      "amenities": ["restrooms", "coffee_bar", "charging_station", "info_desk"],
+      "accessibility": {
+        "wheelchair_accessible": true,
+        "wheelchair_route": "Flat entry from Gate 5, wide corridors throughout, tactile paving installed",
+        "accessible_seating": "Section E1, front row with removable armrests",
+        "accessible_restrooms": "Adjacent to info desk, ground level",
+        "sensory_friendly": false,
+        "hearing_loop": true,
+        "quiet_room_nearby": true,
+        "braille_signage": true,
+        "service_animal_relief": "Indoor relief station near info desk"
+      },
+      "current_status": {
+        "crowd_count": 4200,
+        "density_level": "low",
+        "alerts": []
+      }
+    },
+    {
+      "zone_id": "west_wing",
+      "name": "West Wing",
+      "sections": ["W1", "W2", "W3"],
+      "capacity": 10000,
+      "gates": [
+        {"gate_id": "gate_6", "name": "Gate 6", "location": "West Entrance", "queue_time_minutes": 6}
+      ],
+      "amenities": ["restrooms", "halal_food", "prayer_room", "lost_and_found"],
+      "accessibility": {
+        "wheelchair_accessible": true,
+        "wheelchair_route": "Elevator access from Gate 6 to all levels, staff-assisted if needed",
+        "accessible_seating": "Section W2, mid-level with elevator access",
+        "accessible_restrooms": "Near prayer room, fully accessible",
+        "sensory_friendly": false,
+        "hearing_loop": false,
+        "quiet_room_nearby": false,
+        "braille_signage": true,
+        "service_animal_relief": "Outdoor relief area 40m from Gate 6"
+      },
+      "current_status": {
+        "crowd_count": 7100,
+        "density_level": "medium",
+        "alerts": []
+      }
+    },
+    {
+      "zone_id": "vip_lounge",
+      "name": "VIP Lounge",
+      "sections": ["VIP-A", "VIP-B"],
+      "capacity": 3000,
+      "gates": [
+        {"gate_id": "gate_vip", "name": "VIP Gate", "location": "West VIP Entrance (private)", "queue_time_minutes": 1}
+      ],
+      "amenities": ["premium_dining", "private_restrooms", "lounge_bar", "concierge", "wifi_lounge"],
+      "accessibility": {
+        "wheelchair_accessible": true,
+        "wheelchair_route": "Private elevator from VIP Gate, dedicated wheelchair-accessible suites",
+        "accessible_seating": "All VIP suites are wheelchair accessible with adjustable viewing platforms",
+        "accessible_restrooms": "Private accessible restrooms in each suite corridor",
+        "sensory_friendly": true,
+        "hearing_loop": true,
+        "quiet_room_nearby": true,
+        "braille_signage": true,
+        "service_animal_relief": "Private indoor relief station in VIP corridor"
+      },
+      "current_status": {
+        "crowd_count": 1800,
+        "density_level": "medium",
+        "alerts": []
+      }
+    },
+    {
+      "zone_id": "food_court",
+      "name": "Food Court",
+      "sections": ["FC-Main", "FC-Terrace"],
+      "capacity": 5000,
+      "gates": [
+        {"gate_id": "gate_fc", "name": "Food Court Access", "location": "Internal — accessible from all zones via main concourse", "queue_time_minutes": 0}
+      ],
+      "amenities": [
+        "international_cuisine", "vegetarian_options", "halal_options", "kosher_options",
+        "allergen_free_counter", "baby_food_station", "water_refill_station"
+      ],
+      "accessibility": {
+        "wheelchair_accessible": true,
+        "wheelchair_route": "Flat access from main concourse, lowered counters at all vendors, wide aisles",
+        "accessible_seating": "Accessible tables with wheelchair space throughout, priority seating near entrances",
+        "accessible_restrooms": "Family/accessible restroom at FC-Main entrance",
+        "sensory_friendly": false,
+        "hearing_loop": false,
+        "quiet_room_nearby": false,
+        "braille_signage": true,
+        "service_animal_relief": "Water bowls available at info point"
+      },
+      "current_status": {
+        "crowd_count": 3800,
+        "density_level": "high",
+        "alerts": []
+      }
+    },
+    {
+      "zone_id": "first_aid",
+      "name": "First Aid & Medical Center",
+      "sections": ["MED-1"],
+      "capacity": 500,
+      "gates": [
+        {"gate_id": "gate_med", "name": "Medical Access", "location": "Ground level, between North Stand and East Wing", "queue_time_minutes": 0}
+      ],
+      "amenities": ["emergency_medical", "defibrillator", "pharmacy", "cooling_station", "mental_health_support"],
+      "accessibility": {
+        "wheelchair_accessible": true,
+        "wheelchair_route": "Direct ground-level access, automatic doors, stretcher-width corridors",
+        "accessible_seating": "Waiting area with wheelchair spaces and adjustable-height examination beds",
+        "accessible_restrooms": "Fully accessible medical-grade restroom",
+        "sensory_friendly": true,
+        "hearing_loop": true,
+        "quiet_room_nearby": true,
+        "braille_signage": true,
+        "service_animal_relief": "Indoor relief area within medical center"
+      },
+      "current_status": {
+        "crowd_count": 45,
+        "density_level": "low",
+        "alerts": []
+      }
+    },
+    {
+      "zone_id": "family_zone",
+      "name": "Family Zone",
+      "sections": ["FAM-1", "FAM-2"],
+      "capacity": 4000,
+      "gates": [
+        {"gate_id": "gate_7", "name": "Gate 7 (Family)", "location": "East-South Corner, stroller-friendly entrance", "queue_time_minutes": 4}
+      ],
+      "amenities": [
+        "baby_changing_station", "nursing_room", "kids_play_area", "face_painting",
+        "stroller_parking", "child_wristband_station", "family_restrooms"
+      ],
+      "accessibility": {
+        "wheelchair_accessible": true,
+        "wheelchair_route": "Wide stroller/wheelchair-friendly paths from Gate 7, no steps anywhere in zone",
+        "accessible_seating": "Family pods with wheelchair space, shaded area available",
+        "accessible_restrooms": "Family-accessible restrooms with changing tables at both sections",
+        "sensory_friendly": true,
+        "hearing_loop": true,
+        "quiet_room_nearby": true,
+        "braille_signage": true,
+        "service_animal_relief": "Dedicated family-friendly relief area inside zone"
+      },
+      "current_status": {
+        "crowd_count": 2900,
+        "density_level": "medium",
+        "alerts": []
+      }
+    }
+  ],
+  "general_info": {
+    "wifi": "Free WiFi available stadium-wide. Network: FIFA2026-FanNet. No password required.",
+    "parking": "Lots A-F available. Accessible parking in Lots A and B, closest to Gates 1 and 5.",
+    "public_transport": "NJ Transit rail to MetLife Stadium station. Shuttle buses from NYC Penn Station every 10 minutes on match days.",
+    "prohibited_items": ["weapons", "fireworks", "outside_food_large_containers", "drones", "laser_pointers"],
+    "allowed_items": ["small_bags_under_12x12", "sealed_water_bottles", "medication", "baby_supplies", "assistive_devices"],
+    "lost_and_found": "West Wing, near Gate 6. Open throughout event and 2 hours post-match.",
+    "prayer_rooms": "Located in West Wing, non-denominational, open to all fans.",
+    "smoking_areas": "Designated areas outside Gates 2, 4, and 6 only.",
+    "emergency_exits": "Clearly marked with illuminated signs at every section. Staff available to guide evacuation."
+  }
+}
