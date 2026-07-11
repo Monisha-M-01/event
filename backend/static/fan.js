@@ -1,4 +1,23 @@
-const API_BASE_URL = 'http://localhost:8000'; // Default FastAPI dev server
+// Auth Check
+const authData = JSON.parse(sessionStorage.getItem("fanflow_auth") || "null");
+if (!authData) {
+  window.location.href = "/";
+} else {
+  document.addEventListener("DOMContentLoaded", () => {
+    const authInfo = document.getElementById("auth-info");
+    const logoutBtn = document.getElementById("logout-btn");
+    if (authInfo) authInfo.textContent = `Logged in as ${authData.name} · ${authData.role === 'staff' ? 'Staff' : 'Fan'}`;
+    if (logoutBtn) {
+      logoutBtn.addEventListener("click", () => {
+        sessionStorage.removeItem("fanflow_auth");
+        document.cookie = "fanflow_role=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        window.location.href = "/";
+      });
+    }
+  });
+}
+
+const API_BASE_URL = window.location.origin;
 
 // DOM Elements
 const chatContainer = document.getElementById('chat-container');
@@ -42,7 +61,7 @@ async function sendMessage(text) {
   
   try {
     // 3. Call FastAPI Backend
-    const response = await fetch(`${API_BASE_URL}/chat`, {
+    const response = await fetch(`${API_BASE_URL}/api/chat`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

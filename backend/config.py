@@ -42,6 +42,9 @@ class Settings(BaseSettings):
     # --- Rate limiting ---
     rate_limit: str = "30/minute"
 
+    # --- Auth ---
+    staff_access_code: str = "admin123"
+
     # --- Crowd simulator ---
     crowd_update_interval_seconds: int = 5
 

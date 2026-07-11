@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>FanFlow AI - Welcome</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/landing.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body class="theme-standard landing-body">
+  <div class="landing-container">
+    <header class="app-header scoreboard-header">
+      <div class="header-content" style="text-align: center; width: 100%;">
+        <div class="title-wrapper" style="justify-content: center;">
+          <span class="live-dot" aria-hidden="true"></span>
+          <h1>FANFLOW AI</h1>
+        </div>
+        <p class="subtitle">FIFA WORLD CUP 2026™ • METLIFE STADIUM</p>
+      </div>
+    </header>
+
+    <main class="landing-main">
+      <h2 class="welcome-text">Select your entrance</h2>
+      <div class="gates-container">
+        
+        <!-- FAN GATE -->
+        <div class="gate-card fan-gate">
+          <div class="gate-icon">🏟️</div>
+          <h3 class="gate-title">Fan Gate</h3>
+          <p class="gate-desc">Get live directions, check wait times, and find stadium amenities.</p>
+          <form id="fan-login-form" class="login-form">
+            <input type="text" id="fan-name" placeholder="Your Name (optional)" class="login-input" autocomplete="off">
+            <button type="submit" class="gate-btn fan-btn">Enter as Fan</button>
+          </form>
+        </div>
+
+        <!-- STAFF GATE -->
+        <div class="gate-card staff-gate">
+          <div class="gate-icon">🛡️</div>
+          <h3 class="gate-title">Ops / Staff Gate</h3>
+          <p class="gate-desc">Command center for live crowd data and AI-prioritized incident alerts.</p>
+          <form id="staff-login-form" class="login-form">
+            <input type="text" id="staff-name" placeholder="Your Name" required class="login-input" autocomplete="off">
+            <input type="password" id="staff-code" placeholder="Access Code" required class="login-input" autocomplete="off">
+            <button type="submit" class="gate-btn staff-btn">Enter as Staff</button>
+          </form>
+          <div id="staff-error" class="login-error hidden">Invalid access code.</div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+  <script src="/static/login.js"></script>
+</body>
+</html>

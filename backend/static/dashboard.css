@@ -1,0 +1,203 @@
+/* Dashboard Specific Styles extending style.css */
+
+.dashboard-body {
+  align-items: flex-start;
+  padding: 0;
+  height: auto;
+  min-height: 100vh;
+}
+
+.dashboard-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-main {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  padding: 32px;
+}
+
+@media (max-width: 900px) {
+  .dashboard-main {
+    flex-direction: column;
+  }
+}
+
+.dashboard-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.left-col {
+  flex: 1.5;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
+
+.nav-link {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border: 1px solid var(--primary-color);
+  border-radius: 4px;
+  transition: var(--transition);
+}
+
+.nav-link:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+/* Guidance Box */
+.guidance-box {
+  background: linear-gradient(135deg, #1A1A24 0%, #0E1117 100%);
+  border: 1px solid #00A3E0;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,163,224,0.15);
+}
+
+.guidance-title {
+  color: #00A3E0;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#guidance-text {
+  white-space: pre-line;
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+/* Occupancy Table/Bars */
+.occupancy-item {
+  background-color: var(--surface-color);
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  border-left: 4px solid var(--primary-color);
+}
+
+.occupancy-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.occupancy-bar-bg {
+  background-color: var(--bg-color);
+  height: 12px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.occupancy-bar-fill {
+  background-color: var(--primary-color);
+  height: 100%;
+  transition: width 0.5s ease-in-out;
+}
+
+.occupancy-status {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+/* Alerts */
+.metrics-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.metric-card {
+  flex: 1;
+  background-color: var(--surface-color);
+  padding: 20px;
+  border-radius: 12px;
+  border-left: 4px solid var(--primary-color);
+}
+
+.metric-card.critical {
+  border-left-color: #FF4B4B;
+}
+
+.metric-label {
+  font-size: 14px;
+  color: #888;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.metric-value {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.metric-card.critical .metric-value {
+  color: #FF4B4B;
+}
+
+.alert-card {
+  background-color: var(--surface-color);
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  border: 1px solid var(--chalk-line);
+}
+
+.alert-critical { border-left: 4px solid #FF4B4B; }
+.alert-high { border-left: 4px solid #FFA421; }
+.alert-medium { border-left: 4px solid #FCE83A; }
+
+.alert-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.alert-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.alert-zone {
+  color: #AAA;
+  font-size: 0.85rem;
+  background: #333;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.alert-desc {
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+  color: #DDD;
+}
+
+.alert-action {
+  font-size: 0.9rem;
+  color: #00A3E0;
+  background: var(--bg-color);
+  padding: 8px;
+  border-radius: 6px;
+  border-left: 2px solid #00A3E0;
+}

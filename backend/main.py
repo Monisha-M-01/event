@@ -12,12 +12,19 @@ Security: CORS restricted, rate-limited, input-sanitized.
 from __future__ import annotations
 
 import logging
+import os
 import time
+from dotenv import load_dotenv
+
+load_dotenv()
 from collections import defaultdict
 from datetime import datetime, timezone
 
 from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse, RedirectResponse
+from pydantic import BaseModel
 
 from backend.alert_engine import AlertEngine
 from backend.config import get_settings
@@ -140,16 +147,65 @@ async def startup() -> None:
 
 
 # ---------------------------------------------------------------------------
+# Frontend Routes & Auth
+# ---------------------------------------------------------------------------
+
+app.mount("/static", StaticFiles(directory="backend/static"), name="static")
+
+@app.get("/", include_in_schema=False)
+async def serve_index():
+    return FileResponse("backend/static/index.html")
+
+@app.get("/fan", include_in_schema=False)
+async def serve_fan(request: Request):
+    role = request.cookies.get("fanflow_role")
+    if not role:
+        return RedirectResponse(url="/")
+    return FileResponse("backend/static/fan.html")
+
+@app.get("/staff", include_in_schema=False)
+async def serve_staff(request: Request):
+    role = request.cookies.get("fanflow_role")
+    if role != "staff":
+        return RedirectResponse(url="/")
+    return FileResponse("backend/static/staff.html")
+
+class LoginRequest(BaseModel):
+    role: str
+    name: str = ""
+    access_code: str = ""
+
+@app.post("/api/login", tags=["Auth"])
+async def login(req: LoginRequest, response: Response):
+    """
+    Hackathon scope auth: simple shared access code validation.
+    
+    IN PRODUCTION:
+    - Use JWTs or a proper session store (e.g., Redis).
+    - Validate users against a DB with hashed passwords (bcrypt/argon2).
+    - Use secure, HttpOnly, SameSite cookies.
+    """
+    if req.role == "staff":
+        expected_code = os.getenv("STAFF_ACCESS_CODE", "admin123")
+        print(f"DEBUG: Comparing submitted '{req.access_code}' vs expected '{expected_code}'")
+        if req.access_code != expected_code:
+            raise HTTPException(status_code=401, detail="Invalid access code.")
+    
+    # Simple hackathon cookie
+    response.set_cookie(key="fanflow_role", value=req.role, path="/")
+    return {"status": "ok", "role": req.role, "name": req.name}
+
+# ---------------------------------------------------------------------------
 # Endpoints
 # ---------------------------------------------------------------------------
 
-@app.get("/health", response_model=HealthResponse, tags=["System"])
+@app.get("/api/health", response_model=HealthResponse, tags=["System"])
 async def health_check() -> HealthResponse:
     """Service health check."""
     return HealthResponse()
 
 
-@app.post("/chat", response_model=ChatResponse, tags=["Fan Assistant"])
+@app.post("/api/chat", response_model=ChatResponse, tags=["Fan Assistant"])
 async def chat(request: ChatRequest) -> ChatResponse:
     """RAG-powered multilingual fan assistant.
 
@@ -179,7 +235,7 @@ async def chat(request: ChatRequest) -> ChatResponse:
     )
 
 
-@app.get("/crowd-status", response_model=CrowdOverview, tags=["Crowd Management"])
+@app.get("/api/crowd-status", response_model=CrowdOverview, tags=["Crowd Management"])
 async def crowd_status() -> CrowdOverview:
     """Simulated per-zone crowd counts with LLM-generated guidance.
 
@@ -205,7 +261,7 @@ async def crowd_status() -> CrowdOverview:
     )
 
 
-@app.get("/alerts", response_model=AlertOverview, tags=["Incident Management"])
+@app.get("/api/alerts", response_model=AlertOverview, tags=["Incident Management"])
 async def alerts() -> AlertOverview:
     """Generate mock alerts and return LLM-prioritized action cards.
 

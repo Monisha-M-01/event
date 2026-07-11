@@ -1,0 +1,450 @@
+/* Base Variables - Stadium-at-Night Theme */
+:root {
+  /* Core Palette */
+  --pitch-green: #143524;
+  --scoreboard-crimson: #E3003F;
+  --night-navy: #0A111F;
+  --surface-navy: #111A2B;
+  --floodlight-white: #F9F9FB;
+  --chalk-line: #313C4E;
+
+  /* Thematic Assignments */
+  --bg-color: var(--night-navy);
+  --surface-color: var(--surface-navy);
+  --primary-color: var(--scoreboard-crimson);
+  --primary-dark: #B30032;
+  --text-primary: var(--floodlight-white);
+  --text-secondary: #9BA4B5;
+  --border-color: var(--chalk-line);
+  
+  /* Chat Variables */
+  --bot-msg-bg: var(--surface-navy);
+  --user-msg-bg: var(--pitch-green);
+  --user-msg-text: var(--floodlight-white);
+  --system-msg-bg: #060A13;
+
+  /* Core Specs */
+  --shadow-sm: 0 4px 6px rgba(0,0,0,0.3);
+  --shadow-md: 0 8px 16px rgba(0,0,0,0.5);
+  --border-radius: 8px; /* Sharper edges for a more structural/stadium feel */
+  --transition: all 0.2s ease-out;
+  
+  /* Typography */
+  --font-display: 'Oswald', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --base-font-size: 16px;
+}
+
+/* High Contrast Mode Variables (Accessibility Fallback) */
+.theme-high-contrast {
+  --pitch-green: #000000;
+  --scoreboard-crimson: #FFFF00;
+  --night-navy: #000000;
+  --surface-navy: #121212;
+  --floodlight-white: #FFFFFF;
+  --chalk-line: #444444;
+
+  --bg-color: #000000;
+  --surface-color: #121212;
+  --primary-color: #FFFF00;
+  --primary-dark: #CCCC00;
+  --text-primary: #FFFFFF;
+  --text-secondary: #DDDDDD;
+  --border-color: #444444;
+  
+  --bot-msg-bg: #222222;
+  --user-msg-bg: #FFFF00;
+  --user-msg-text: #000000;
+  --system-msg-bg: #1A1A1A;
+  
+  --base-font-size: 18px;
+}
+
+/* Reset & Setup */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--base-font-size);
+  background-color: #05080F; /* Darker than navy for the outer desktop boundary */
+  color: var(--text-primary);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: var(--transition);
+}
+
+/* App Container (Mobile First) */
+.app-container {
+  width: 100%;
+  max-width: 480px;
+  height: 100vh;
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-color);
+  position: relative;
+  overflow: hidden;
+}
+
+@media (min-width: 481px) {
+  .app-container {
+    height: 90vh;
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 40px rgba(0,0,0,0.8);
+    border: 1px solid var(--border-color);
+  }
+}
+
+/* =========================================================
+   Signature Element: Jumbotron Scoreboard Header
+   ========================================================= */
+.scoreboard-header {
+  background-color: #000000;
+  padding: 20px 20px 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 3px solid var(--primary-color);
+  box-shadow: 0 4px 12px rgba(227,0,63,0.15); /* Slight crimson glow */
+  z-index: 10;
+  position: relative;
+}
+
+.scoreboard-header::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.02) 0px,
+    rgba(255, 255, 255, 0.02) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  pointer-events: none; /* LED screen scanline texture */
+}
+
+.header-content {
+  position: relative;
+  z-index: 2;
+}
+
+.title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.live-dot {
+  width: 10px;
+  height: 10px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--primary-color);
+  animation: pulse-live 2s infinite;
+}
+
+@keyframes pulse-live {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.5; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .live-dot {
+    animation: none;
+  }
+}
+
+.header-content h1 {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 1;
+}
+
+.header-content .subtitle {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 6px;
+}
+
+.header-controls {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+select {
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  background: var(--surface-color);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 4px;
+  transition: var(--transition);
+}
+
+.icon-btn:hover, .icon-btn:focus {
+  background-color: rgba(255,255,255,0.1);
+  color: var(--primary-color);
+}
+
+/* Chat Area */
+.chat-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  scroll-behavior: smooth;
+  background-image: radial-gradient(circle at center, rgba(20,53,36,0.1) 0%, transparent 70%); /* subtle pitch glow */
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  max-width: 85%;
+  animation: floodlight-on 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes floodlight-on {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .message {
+    animation: none;
+  }
+}
+
+.message-content {
+  padding: 14px 18px;
+  border-radius: var(--border-radius);
+  line-height: 1.5;
+  word-wrap: break-word;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Specific Message Styles */
+.user-message {
+  align-self: flex-end;
+}
+
+.user-message .message-content {
+  background-color: var(--user-msg-bg);
+  color: var(--user-msg-text);
+  border-color: #1e5237; /* slightly lighter green border */
+  border-bottom-right-radius: 0; /* Structural sharp corner */
+}
+
+.bot-message {
+  align-self: flex-start;
+}
+
+.bot-message .message-content {
+  background-color: var(--bot-msg-bg);
+  color: var(--text-primary);
+  border-bottom-left-radius: 0;
+}
+
+.system-message {
+  align-self: center;
+  max-width: 90%;
+}
+
+.system-message .message-content {
+  background-color: var(--system-msg-bg);
+  color: var(--text-secondary);
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.85rem;
+  text-align: center;
+  border: 1px dashed var(--chalk-line);
+  padding: 10px 16px;
+  border-radius: 4px;
+}
+
+/* Typing Indicator */
+.typing-indicator {
+  align-self: flex-start;
+  background-color: var(--bot-msg-bg);
+  padding: 14px 18px;
+  border-radius: var(--border-radius);
+  border-bottom-left-radius: 0;
+  border: 1px solid var(--border-color);
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.typing-indicator.hidden {
+  display: none;
+}
+
+.typing-indicator span {
+  width: 6px;
+  height: 6px;
+  background-color: var(--primary-color);
+  border-radius: 0; /* Square blocks for a digital scoreboard feel */
+  animation: blink-digital 1s infinite step-end;
+}
+
+.typing-indicator span:nth-child(1) { animation-delay: 0s; }
+.typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+.typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes blink-digital {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+
+/* Quick Replies */
+.quick-replies {
+  display: flex;
+  gap: 10px;
+  padding: 12px 20px;
+  overflow-x: auto;
+  white-space: nowrap;
+  background-color: var(--bg-color);
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  border-top: 1px solid var(--border-color);
+}
+
+.quick-replies::-webkit-scrollbar {
+  display: none;
+}
+
+.quick-reply-btn {
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--chalk-line);
+  padding: 10px 16px;
+  border-radius: 4px;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: var(--transition);
+  flex-shrink: 0;
+  box-shadow: 0 2px 0 var(--chalk-line);
+}
+
+.quick-reply-btn:hover, .quick-reply-btn:focus {
+  background-color: var(--surface-color);
+  border-color: var(--text-primary);
+  color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 0 var(--chalk-line);
+}
+
+.quick-reply-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 0 0 transparent;
+}
+
+/* Footer / Input Area */
+.app-footer {
+  background-color: var(--bg-color);
+  padding: 16px 20px 24px 20px;
+}
+
+.chat-form {
+  display: flex;
+  gap: 12px;
+}
+
+#chat-input {
+  flex: 1;
+  padding: 14px 16px;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+#chat-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 1px var(--primary-color);
+}
+
+#chat-input::placeholder {
+  color: var(--text-secondary);
+}
+
+.send-btn {
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 2px 0 var(--primary-dark);
+}
+
+.send-btn:hover, .send-btn:focus {
+  background-color: #FF0A4B;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 0 var(--primary-dark);
+}
+
+.send-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 0 0 transparent;
+}
+
+/* Accessibility overrides for high contrast focus */
+*:focus-visible {
+  outline: 2px solid var(--primary-color) !important;
+  outline-offset: 4px;
+}
+
+.theme-high-contrast *:focus-visible {
+  outline: 3px solid var(--primary-color) !important;
+  outline-offset: 4px;
+}
