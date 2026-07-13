@@ -66,6 +66,7 @@ app = FastAPI(
 
 # --- CORS (restrict to known front-end origins) ---
 _ALLOWED_ORIGINS = [
+    "*",                         # Allow all for deployment dynamically
     "http://localhost:3000",
     "http://localhost:5500",
     "http://localhost:8501",     # Streamlit default
@@ -221,11 +222,11 @@ async def chat(request: ChatRequest) -> ChatResponse:
 
     try:
         answer, lang, zones = await _rag_engine.answer(cleaned)
-    except RuntimeError as exc:
+    except Exception as exc:
         logger.error("Chat LLM error: %s", exc)
         raise HTTPException(
             status_code=503,
-            detail="AI assistant temporarily unavailable. Please try again.",
+            detail="I'm having trouble connecting right now — please ask a staff member nearby, or try again in a moment.",
         ) from exc
 
     return ChatResponse(
@@ -248,10 +249,11 @@ async def crowd_status() -> CrowdOverview:
 
     try:
         guidance = await _crowd_sim.get_guidance(statuses)
-    except RuntimeError:
+    except Exception as exc:
+        logger.error("Crowd guidance LLM error: %s", exc)
         guidance = (
-            "Live AI guidance temporarily unavailable. "
-            "Please check zone occupancy percentages above."
+            "AI routing guidance temporarily unavailable — "
+            "showing raw alert data below."
         )
 
     return CrowdOverview(
@@ -274,8 +276,9 @@ async def alerts() -> AlertOverview:
 
     try:
         overview = await _alert_engine.prioritize_alerts(alert_list)
-    except RuntimeError:
-        # Fallback already handled inside AlertEngine, but just in case
+    except Exception as exc:
+        logger.error("Alert prioritization LLM error: %s", exc)
+        # Fallback: show raw alerts without AI summarization
         from backend.models import AlertCard
 
         overview = AlertOverview(
@@ -293,3 +296,8 @@ async def alerts() -> AlertOverview:
         )
 
     return overview
+
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.environ.get("PORT", 8082))
+    uvicorn.run(app, host="0.0.0.0", port=port)

@@ -204,7 +204,11 @@ class AlertEngine:
 
         try:
             raw = await self._llm.generate(
-                system_prompt, alerts_text, use_cache=False
+                system_prompt,
+                alerts_text,
+                use_cache=False,
+                use_lite_model=True,
+                caller_context="staff",
             )
             # Parse LLM JSON response
             # Strip markdown code fences if present
@@ -214,7 +218,7 @@ class AlertEngine:
                 if cleaned.endswith("```"):
                     cleaned = cleaned[:-3]
             rankings: list[dict[str, Any]] = json.loads(cleaned)
-        except (json.JSONDecodeError, RuntimeError) as exc:
+        except Exception as exc:
             logger.warning("LLM ranking failed, using severity fallback: %s", exc)
             # Fallback: sort by severity descending
             rankings = [

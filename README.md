@@ -19,7 +19,18 @@ FanFlow AI is a hybrid hackathon prototype built for the FIFA World Cup 2026 at 
 This project is structured as a **single deployable service**. 
 You only need ONE deployment/service on platforms like Render, Railway, or Fly.io.
 
-1. Connect your repository to your hosting provider.
-2. Set the build command to `pip install -r requirements.txt`.
-3. Set the start command to `uvicorn backend.main:app --host 0.0.0.0 --port $PORT`.
-4. The same URL will serve both the fan app at the root (`/`) and the organizer dashboard at (`/dashboard`).
+### Exact Deployment Steps (Render)
+1. **Push to GitHub**: Make sure this repository is pushed to your GitHub account.
+2. Go to [Render.com](https://render.com) and log in.
+3. Click **New** -> **Web Service**.
+4. Connect the GitHub repository you just pushed.
+5. Provide a name for your service.
+6. Make sure the Environment is set to **Python 3**.
+7. Set the **Build Command** to: `pip install -r requirements.txt`
+8. Set the **Start Command** to: `uvicorn backend.main:app --host 0.0.0.0 --port $PORT`
+9. Under **Advanced**, click **Add Environment Variable** and add the following two secrets:
+    * Key: `GEMINI_API_KEY`, Value: *<your_actual_gemini_api_key>*
+    * Key: `STAFF_ACCESS_CODE`, Value: *<your_custom_admin_password>*
+10. Click **Create Web Service** at the bottom.
+11. Wait for the build and deployment to finish (this may take a few minutes).
+12. Once deployed, click the provided Render URL at the top left. This single public URL will serve both the Fan Gate at `/` and the Staff Dashboard at `/staff`!

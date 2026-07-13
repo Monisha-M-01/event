@@ -236,5 +236,9 @@ class CrowdSimulator:
         user_message = f"Current stadium crowd status:\n{status_text}"
 
         return await self._llm.generate(
-            system_prompt, user_message, use_cache=False
+            system_prompt,
+            user_message,
+            use_cache=False,
+            use_lite_model=True,
+            caller_context="staff",
         )

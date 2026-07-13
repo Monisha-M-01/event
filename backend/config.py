@@ -29,11 +29,16 @@ class Settings(BaseSettings):
         case_sensitive=False,
     )
 
-    # --- Anthropic / LLM ---
-    anthropic_api_key: str = ""
-    llm_model: str = "claude-sonnet-4-20250514"
+    # --- Gemini / LLM ---
+    gemini_api_key: str = ""
+    llm_model: str = "gemini-3.1-flash-lite"
+    llm_model_lite: str = "gemini-3.1-flash-lite"
     llm_max_tokens: int = 1024
     llm_temperature: float = 0.3
+
+    # --- Retry settings (for 429 rate-limit resilience) ---
+    llm_max_retries: int = 3
+    llm_retry_base_delay: float = 1.0  # seconds; exponential backoff: 1s, 2s, 4s
 
     # --- Caching ---
     cache_max_size: int = 256
