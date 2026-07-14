@@ -10,6 +10,7 @@ FanFlow AI is a hybrid prototype built for the FIFA World Cup 2026 at MetLife St
    ```bash
    uvicorn backend.main:app --reload
    ```
-4. Access the apps:
-   - **Fan Chat UI**: [http://localhost:8000/](http://localhost:8000/)
-   - **Organizer Dashboard**: [http://localhost:8000/dashboard](http://localhost:8000/dashboard)
+
+## Deployment
+
+- **Live Application**: [https://fanflow.onrender.com](https://fanflow.onrender.com)
