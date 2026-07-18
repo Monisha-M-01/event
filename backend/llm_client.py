@@ -9,8 +9,6 @@ from __future__ import annotations
 import asyncio
 import json
 import logging
-from typing import Any
-
 from cachetools import TTLCache
 from google import genai
 from google.genai import types
@@ -163,7 +161,8 @@ class LLMClient:
                     {
                         "original_index": i + 1,
                         "priority_rank": i + 1,
-                        "summary": "[MOCK] Ensure safety protocols are followed immediately.",
+                        "summary": "[MOCK] Ensure safety protocols "
+                        "are followed immediately.",
                     }
                 )
             return json.dumps(rankings)

@@ -39,12 +39,14 @@ def test_chat_injection_attempt(client):
 # For the hackathon context, testing the validation and health endpoints
 # proves the testing structure exists.
 
+
 def test_crowd_status(client):
     """Test the crowd status endpoint."""
     response = client.get("/api/crowd-status")
     # Even if LLM fails, it falls back gracefully
     assert response.status_code == 200
     assert "zones" in response.json()
+
 
 def test_alerts(client):
     """Test the alerts endpoint."""

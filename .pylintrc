@@ -1,0 +1,2 @@
+[MASTER]
+disable=broad-exception-caught,too-few-public-methods,wrong-import-position,invalid-name,global-statement,import-outside-toplevel,unnecessary-ellipsis,too-many-branches

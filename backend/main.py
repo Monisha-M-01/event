@@ -14,30 +14,24 @@ from __future__ import annotations
 import logging
 import os
 import time
-from dotenv import load_dotenv
-
 from collections import defaultdict
 from datetime import datetime, timezone
 
+from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, RedirectResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-load_dotenv()
+load_dotenv()  # pylint: disable=wrong-import-position
 
 from backend.alert_engine import AlertEngine
 from backend.config import get_settings
 from backend.crowd_simulator import CrowdSimulator
 from backend.llm_client import LLMClient
-from backend.models import (
-    AlertOverview,
-    ChatRequest,
-    ChatResponse,
-    CrowdOverview,
-    HealthResponse,
-)
+from backend.models import (AlertOverview, ChatRequest, ChatResponse,
+                            CrowdOverview, HealthResponse)
 from backend.rag_engine import RAGEngine
 from backend.sanitizer import sanitize_query
 
@@ -136,7 +130,7 @@ _alert_engine: AlertEngine | None = None
 @app.on_event("startup")
 async def startup() -> None:
     """Initialize shared services on application startup."""
-    global _llm_client, _rag_engine, _crowd_sim, _alert_engine  # noqa: PLW0603
+    global _llm_client, _rag_engine, _crowd_sim, _alert_engine  # pylint: disable=global-statement
 
     logger.info("Starting FanFlow AI backend …")
     _llm_client = LLMClient()
@@ -157,11 +151,13 @@ app.mount("/static", StaticFiles(directory="backend/static"), name="static")
 
 @app.get("/", include_in_schema=False)
 async def serve_index():
+    """Serve the main landing page."""
     return FileResponse("backend/static/index.html")
 
 
 @app.get("/fan", include_in_schema=False)
 async def serve_fan(request: Request):
+    """Serve the fan chat interface, redirecting if not authorized."""
     role = request.cookies.get("fanflow_role")
     if not role:
         return RedirectResponse(url="/")
@@ -170,6 +166,7 @@ async def serve_fan(request: Request):
 
 @app.get("/staff", include_in_schema=False)
 async def serve_staff(request: Request):
+    """Serve the staff dashboard interface, redirecting if not staff."""
     role = request.cookies.get("fanflow_role")
     if role != "staff":
         return RedirectResponse(url="/")
@@ -177,6 +174,7 @@ async def serve_staff(request: Request):
 
 
 class LoginRequest(BaseModel):
+    """Request model for user login."""
     role: str
     name: str = ""
     access_code: str = ""
@@ -195,7 +193,8 @@ async def login(req: LoginRequest, response: Response):
     if req.role == "staff":
         expected_code = os.getenv("STAFF_ACCESS_CODE", "admin123")
         print(
-            f"DEBUG: Comparing submitted '{req.access_code}' vs expected '{expected_code}'"
+            f"DEBUG: Comparing submitted '{req.access_code}' "
+            f"vs expected '{expected_code}'"
         )
         if req.access_code != expected_code:
             raise HTTPException(status_code=401, detail="Invalid access code.")
@@ -236,7 +235,8 @@ async def chat(request: ChatRequest) -> ChatResponse:
         logger.error("Chat LLM error: %s", exc)
         raise HTTPException(
             status_code=503,
-            detail="I'm having trouble connecting right now — please ask a staff member nearby, or try again in a moment.",
+            detail="I'm having trouble connecting right now — "
+            "please ask a staff member nearby, or try again in a moment.",
         ) from exc
 
     return ChatResponse(

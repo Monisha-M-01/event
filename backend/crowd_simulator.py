@@ -233,7 +233,8 @@ class CrowdSimulator:
             "Focus on: which areas to avoid, best alternate routes/gates, "
             "and estimated time savings.\n"
             "Format: bullet points, concise, direct.\n"
-            "Example: '• Gate 3 congested (12min wait) — use Gate 5 instead, saves ~10 min.'"
+            "Example: '• Gate 3 congested (12min wait) "
+            "— use Gate 5 instead, saves ~10 min.'"
         )
 
         user_message = f"Current stadium crowd status:\n{status_text}"

@@ -16,13 +16,8 @@ from typing import Any
 
 from backend.config import get_settings
 from backend.llm_client import LLMClient
-from backend.models import (
-    Alert,
-    AlertCard,
-    AlertOverview,
-    AlertSeverity,
-    AlertType,
-)
+from backend.models import (Alert, AlertCard, AlertOverview, AlertSeverity,
+                            AlertType)
 
 logger = logging.getLogger(__name__)
 
