@@ -22,13 +22,34 @@ logger = logging.getLogger(__name__)
 
 # Keywords that signal an accessibility-related query
 _ACCESSIBILITY_KEYWORDS: set[str] = {
-    "wheelchair", "accessible", "accessibility", "disability", "disabled",
-    "ramp", "elevator", "lift", "sensory", "quiet", "hearing", "loop",
-    "braille", "service animal", "service dog", "guide dog", "ada",
-    "mobility", "impairment", "assistive", "special needs",
+    "wheelchair",
+    "accessible",
+    "accessibility",
+    "disability",
+    "disabled",
+    "ramp",
+    "elevator",
+    "lift",
+    "sensory",
+    "quiet",
+    "hearing",
+    "loop",
+    "braille",
+    "service animal",
+    "service dog",
+    "guide dog",
+    "ada",
+    "mobility",
+    "impairment",
+    "assistive",
+    "special needs",
     # Multilingual accessibility terms (Spanish, French, Arabic transliterations)
-    "silla de ruedas", "accesible", "discapacidad",
-    "fauteuil roulant", "handicapé", "accessibilité",
+    "silla de ruedas",
+    "accesible",
+    "discapacidad",
+    "fauteuil roulant",
+    "handicapé",
+    "accessibilité",
 }
 
 # General retrieval keywords mapped to zone fields
@@ -276,9 +297,8 @@ class RAGEngine:
         zone_context = json.dumps(context_zones, indent=2, ensure_ascii=False)
         general_context = ""
         if general_info:
-            general_context = (
-                "\n\nGeneral Stadium Information:\n"
-                + json.dumps(general_info, indent=2, ensure_ascii=False)
+            general_context = "\n\nGeneral Stadium Information:\n" + json.dumps(
+                general_info, indent=2, ensure_ascii=False
             )
 
         system_prompt = (
@@ -332,7 +352,7 @@ class RAGEngine:
         if raw_response.startswith("[LANG:"):
             end = raw_response.index("]")
             detected_language = raw_response[6:end].strip()
-            answer_text = raw_response[end + 1:].strip()
+            answer_text = raw_response[end + 1 :].strip()
         else:
             answer_text = raw_response.strip()
 

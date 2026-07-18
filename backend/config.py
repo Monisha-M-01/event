@@ -11,7 +11,6 @@ from pathlib import Path
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-
 # Resolve paths relative to project root (one level up from backend/)
 _PROJECT_ROOT = Path(__file__).resolve().parent.parent
 

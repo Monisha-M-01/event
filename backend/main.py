@@ -16,7 +16,6 @@ import os
 import time
 from dotenv import load_dotenv
 
-load_dotenv()
 from collections import defaultdict
 from datetime import datetime, timezone
 
@@ -25,6 +24,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, RedirectResponse
 from pydantic import BaseModel
+
+load_dotenv()
 
 from backend.alert_engine import AlertEngine
 from backend.config import get_settings
@@ -66,16 +67,16 @@ app = FastAPI(
 
 # --- CORS (restrict to known front-end origins) ---
 _ALLOWED_ORIGINS = [
-    "*",                         # Allow all for deployment dynamically
+    "*",  # Allow all for deployment dynamically
     "http://localhost:3000",
     "http://localhost:5500",
-    "http://localhost:8501",     # Streamlit default
+    "http://localhost:8501",  # Streamlit default
     "http://127.0.0.1:3000",
     "http://127.0.0.1:5500",
     "http://127.0.0.1:8501",
     "http://localhost:8080",
     "http://127.0.0.1:8080",
-    "null",                      # file:// protocol sends origin "null"
+    "null",  # file:// protocol sends origin "null"
 ]
 
 app.add_middleware(
@@ -153,9 +154,11 @@ async def startup() -> None:
 
 app.mount("/static", StaticFiles(directory="backend/static"), name="static")
 
+
 @app.get("/", include_in_schema=False)
 async def serve_index():
     return FileResponse("backend/static/index.html")
+
 
 @app.get("/fan", include_in_schema=False)
 async def serve_fan(request: Request):
@@ -164,6 +167,7 @@ async def serve_fan(request: Request):
         return RedirectResponse(url="/")
     return FileResponse("backend/static/fan.html")
 
+
 @app.get("/staff", include_in_schema=False)
 async def serve_staff(request: Request):
     role = request.cookies.get("fanflow_role")
@@ -171,16 +175,18 @@ async def serve_staff(request: Request):
         return RedirectResponse(url="/")
     return FileResponse("backend/static/staff.html")
 
+
 class LoginRequest(BaseModel):
     role: str
     name: str = ""
     access_code: str = ""
 
+
 @app.post("/api/login", tags=["Auth"])
 async def login(req: LoginRequest, response: Response):
     """
     Hackathon scope auth: simple shared access code validation.
-    
+
     IN PRODUCTION:
     - Use JWTs or a proper session store (e.g., Redis).
     - Validate users against a DB with hashed passwords (bcrypt/argon2).
@@ -188,17 +194,21 @@ async def login(req: LoginRequest, response: Response):
     """
     if req.role == "staff":
         expected_code = os.getenv("STAFF_ACCESS_CODE", "admin123")
-        print(f"DEBUG: Comparing submitted '{req.access_code}' vs expected '{expected_code}'")
+        print(
+            f"DEBUG: Comparing submitted '{req.access_code}' vs expected '{expected_code}'"
+        )
         if req.access_code != expected_code:
             raise HTTPException(status_code=401, detail="Invalid access code.")
-    
+
     # Simple hackathon cookie
     response.set_cookie(key="fanflow_role", value=req.role, path="/")
     return {"status": "ok", "role": req.role, "name": req.name}
 
+
 # ---------------------------------------------------------------------------
 # Endpoints
 # ---------------------------------------------------------------------------
+
 
 @app.get("/api/health", response_model=HealthResponse, tags=["System"])
 async def health_check() -> HealthResponse:
@@ -297,7 +307,9 @@ async def alerts() -> AlertOverview:
 
     return overview
 
+
 if __name__ == "__main__":
     import uvicorn
+
     port = int(os.environ.get("PORT", 8082))
     uvicorn.run(app, host="0.0.0.0", port=port)

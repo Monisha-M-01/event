@@ -30,8 +30,8 @@
           <h3 class="gate-title">Fan Gate</h3>
           <p class="gate-desc">Get live directions, check wait times, and find stadium amenities.</p>
           <form id="fan-login-form" class="login-form">
-            <input type="text" id="fan-name" placeholder="Your Name (optional)" class="login-input" autocomplete="off">
-            <button type="submit" class="gate-btn fan-btn">Enter as Fan</button>
+            <input type="text" id="fan-name" aria-label="Your Name" placeholder="Your Name (optional)" class="login-input" autocomplete="off">
+            <button type="submit" class="gate-btn fan-btn" aria-label="Enter as Fan">Enter as Fan</button>
           </form>
         </div>
 
@@ -41,9 +41,9 @@
           <h3 class="gate-title">Ops / Staff Gate</h3>
           <p class="gate-desc">Command center for live crowd data and AI-prioritized incident alerts.</p>
           <form id="staff-login-form" class="login-form">
-            <input type="text" id="staff-name" placeholder="Your Name" required class="login-input" autocomplete="off">
-            <input type="password" id="staff-code" placeholder="Access Code" required class="login-input" autocomplete="off">
-            <button type="submit" class="gate-btn staff-btn">Enter as Staff</button>
+            <input type="text" id="staff-name" aria-label="Staff Name" placeholder="Your Name" required class="login-input" autocomplete="off">
+            <input type="password" id="staff-code" aria-label="Staff Access Code" placeholder="Access Code" required class="login-input" autocomplete="off">
+            <button type="submit" class="gate-btn staff-btn" aria-label="Enter as Staff">Enter as Staff</button>
           </form>
           <div id="staff-error" class="login-error hidden">Invalid access code.</div>
         </div>

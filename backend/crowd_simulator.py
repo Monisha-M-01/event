@@ -29,6 +29,7 @@ logger = logging.getLogger(__name__)
 # Abstract sensor feed (for future YOLOv8 integration)
 # ---------------------------------------------------------------------------
 
+
 class AbstractSensorFeed(ABC):
     """Base class for crowd sensor data sources.
 
@@ -49,6 +50,7 @@ class AbstractSensorFeed(ABC):
 # ---------------------------------------------------------------------------
 # Mock sensor feed
 # ---------------------------------------------------------------------------
+
 
 class MockSensorFeed(AbstractSensorFeed):
     """Simulated sensor feed using random walk around baseline values."""
@@ -81,6 +83,7 @@ class MockSensorFeed(AbstractSensorFeed):
 # ---------------------------------------------------------------------------
 # Crowd simulator
 # ---------------------------------------------------------------------------
+
 
 class CrowdSimulator:
     """Manages crowd state across all zones and generates LLM guidance.

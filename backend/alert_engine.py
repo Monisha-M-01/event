@@ -144,9 +144,7 @@ class AlertEngine:
                 severity=AlertSeverity(tmpl["severity"]),
                 zone=zone.get("name", "Unknown"),
                 section=random.choice(sections),
-                description=self._fill_template(
-                    tmpl["description_template"], zone
-                ),
+                description=self._fill_template(tmpl["description_template"], zone),
                 recommended_action=self._fill_template(
                     tmpl.get("recommended_action", "Investigate immediately."),
                     zone,
@@ -228,7 +226,11 @@ class AlertEngine:
                     "summary": alert.recommended_action,
                 }
                 for rank, (i, alert) in enumerate(
-                    sorted(enumerate(alerts), key=lambda x: x[1].severity.value, reverse=True)
+                    sorted(
+                        enumerate(alerts),
+                        key=lambda x: x[1].severity.value,
+                        reverse=True,
+                    )
                 )
             ]
 
@@ -241,7 +243,9 @@ class AlertEngine:
                     AlertCard(
                         alert=alerts[idx],
                         priority_rank=ranking.get("priority_rank", idx + 1),
-                        llm_summary=ranking.get("summary", alerts[idx].recommended_action),
+                        llm_summary=ranking.get(
+                            "summary", alerts[idx].recommended_action
+                        ),
                     )
                 )
 

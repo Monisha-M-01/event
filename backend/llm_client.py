@@ -73,7 +73,9 @@ class LLMClient:
         """
         logger.info(
             "LLM generate called. use_cache=%s, lite=%s, context=%s",
-            use_cache, use_lite_model, caller_context,
+            use_cache,
+            use_lite_model,
+            caller_context,
         )
 
         # Check cache
@@ -88,8 +90,7 @@ class LLMClient:
 
         # Select model
         model = (
-            self.settings.llm_model_lite if use_lite_model
-            else self.settings.llm_model
+            self.settings.llm_model_lite if use_lite_model else self.settings.llm_model
         )
 
         # Retry loop with exponential backoff for 429 errors
@@ -116,11 +117,14 @@ class LLMClient:
 
                 # Retry only on rate-limit (429) errors
                 if "429" in error_str or "resource_exhausted" in error_str:
-                    delay = self.settings.llm_retry_base_delay * (2 ** attempt)
+                    delay = self.settings.llm_retry_base_delay * (2**attempt)
                     logger.warning(
                         "Rate limited (429) on attempt %d/%d. "
                         "Retrying in %.1fs… [model=%s]",
-                        attempt + 1, self.settings.llm_max_retries, delay, model,
+                        attempt + 1,
+                        self.settings.llm_max_retries,
+                        delay,
+                        model,
                     )
                     await asyncio.sleep(delay)
                     continue
@@ -134,7 +138,9 @@ class LLMClient:
         # All retries exhausted or non-retryable error
         logger.error(
             "LLM generation failed after %d attempt(s): %s [model=%s]",
-            self.settings.llm_max_retries, last_error, model,
+            self.settings.llm_max_retries,
+            last_error,
+            model,
         )
 
         # Return clean, user-friendly fallback — NEVER raw error text
@@ -147,16 +153,19 @@ class LLMClient:
         # 1. Alert Prioritization Mock
         if "action summary" in system_prompt and "JSON array" in system_prompt:
             lines = [
-                line for line in user_message.split("\n")
+                line
+                for line in user_message.split("\n")
                 if line.strip() and line[0].isdigit()
             ]
             rankings = []
             for i, line in enumerate(lines):
-                rankings.append({
-                    "original_index": i + 1,
-                    "priority_rank": i + 1,
-                    "summary": "[MOCK] Ensure safety protocols are followed immediately.",
-                })
+                rankings.append(
+                    {
+                        "original_index": i + 1,
+                        "priority_rank": i + 1,
+                        "summary": "[MOCK] Ensure safety protocols are followed immediately.",
+                    }
+                )
             return json.dumps(rankings)
 
         # 2. Crowd Guidance Mock

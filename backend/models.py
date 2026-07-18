@@ -11,10 +11,10 @@ from enum import Enum
 
 from pydantic import BaseModel, Field
 
-
 # ---------------------------------------------------------------------------
 # Enums
 # ---------------------------------------------------------------------------
+
 
 class DensityLevel(str, Enum):
     """Crowd density classification for a zone."""
@@ -54,6 +54,7 @@ class AlertSeverity(int, Enum):
 # Chat (Module 1)
 # ---------------------------------------------------------------------------
 
+
 class ChatRequest(BaseModel):
     """Incoming fan assistant chat request."""
 
@@ -85,6 +86,7 @@ class ChatResponse(BaseModel):
 # ---------------------------------------------------------------------------
 # Crowd Status (Module 2)
 # ---------------------------------------------------------------------------
+
 
 class GateStatus(BaseModel):
     """Current status of a single gate."""
@@ -119,6 +121,7 @@ class CrowdOverview(BaseModel):
 # ---------------------------------------------------------------------------
 # Alerts (Module 3)
 # ---------------------------------------------------------------------------
+
 
 class Alert(BaseModel):
     """A single stadium alert event."""
@@ -155,6 +158,7 @@ class AlertOverview(BaseModel):
 # ---------------------------------------------------------------------------
 # Health Check
 # ---------------------------------------------------------------------------
+
 
 class HealthResponse(BaseModel):
     """API health check response."""
