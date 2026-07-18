@@ -14,3 +14,7 @@ FanFlow AI is a hybrid prototype built for the FIFA World Cup 2026 at MetLife St
 ## Deployment
 
 - **Live Application**: [https://fanflow.onrender.com](https://fanflow.onrender.com)
+
+## Access
+
+To access the staff dashboard (Command Center), use the staff login code: `admin123` (or the value set in `STAFF_ACCESS_CODE` in your `.env`).
