@@ -199,8 +199,14 @@ async def login(req: LoginRequest, response: Response):
         if req.access_code != expected_code:
             raise HTTPException(status_code=401, detail="Invalid access code.")
 
-    # Simple hackathon cookie
-    response.set_cookie(key="fanflow_role", value=req.role, path="/")
+    # Simple hackathon cookie (allow cross-site for iframes)
+    response.set_cookie(
+        key="fanflow_role", 
+        value=req.role, 
+        path="/",
+        samesite="none",
+        secure=True
+    )
     return {"status": "ok", "role": req.role, "name": req.name}
 
 
